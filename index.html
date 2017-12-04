@@ -1,0 +1,48 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="getImageMeanColor.js"></script>
+</head>
+<body>
+    <img src="123.jpg">
+    <button id="todo">获取图片的平均颜色值</button>
+    <hr/>
+    <span>
+        <span>获取的颜色值为:</span>
+        <label>red:</label>
+        <span id="red"></span>
+        <label>green:</label>
+        <span id="green"></span>
+        <label>blue:</label>
+        <span id="blue"></span>
+        <label>alpha:</label>
+        <span id="alpha"></span>
+        <label>亮度:</label>
+        <span id="l"></span>
+        <br/>
+        <label>共用时:</label>
+        <span id="durtime"></span>
+    </span>
+    <script>
+        document.querySelector("#todo").addEventListener("click",function(){
+            var startTime = new Date();
+            getImageMeanColor({
+                imageUrl:"123.jpg",
+                clipHeight:"100%",
+                skewPosition:"top",
+                minification:10,
+                cb:function(r,g,b,a,l){
+                    document.querySelector("#red").innerHTML=r;
+                    document.querySelector("#green").innerHTML=g;
+                    document.querySelector("#blue").innerHTML=b;
+                    document.querySelector("#alpha").innerHTML=a;
+                    document.querySelector("#l").innerHTML=l;
+                    document.querySelector("#durtime").innerHTML=new Date()-startTime+"毫秒";
+                }
+            });
+        })
+    </script>
+</body>
+</html>
