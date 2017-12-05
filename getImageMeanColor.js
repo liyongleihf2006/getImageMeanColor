@@ -84,11 +84,11 @@ function getImageMeanColor(params){
                 count++;
             }
         }
-        var redMean = redChannel/count;
-        var greenMean = greenChannel/count;
-        var blueMean = blueChannel/count;
+        var redMean = Math.round(redChannel/count);
+        var greenMean = Math.round(greenChannel/count);
+        var blueMean = Math.round(blueChannel/count);
         var alphaMean = alphaChannel/count/255;
-        var color = "rgba("+Math.round(redMean)+","+Math.round(greenMean)+","+Math.round(blueMean)+","+alphaMean+")";
+        var color = "rgba("+redMean+","+greenMean+","+blueMean+","+alphaMean+")";
         /* 亮度 */
         var l = (Math.max(redMean,greenMean,blueMean)+Math.min(redMean,greenMean,blueMean))/2/255;
         cb(color,l,redMean,greenMean,blueMean,alphaMean);
