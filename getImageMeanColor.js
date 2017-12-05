@@ -37,7 +37,7 @@ function getImageMeanColor(params){
     /* 缩小倍数 */
     var minification = params.minification||10;
     /* 回调函数返回图像颜色平均值*/
-    cb = params.cb;
+    var cb = params.cb;
     if(!imageUrl){
         throw new Error("the imageUrl is required!");
     }
