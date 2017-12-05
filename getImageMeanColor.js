@@ -47,9 +47,7 @@ function getImageMeanColor(params){
     var canvasHeight,imageHeight,top=0;
     var image = new Image();
     image.src= imageUrl;
-    image.onload=function(){
-        getMeanColor();
-    }
+    image.addEventListener("load",getMeanColor);
     /* 获取颜色平均值 */
     function getMeanColor(){
         var canvas=document.createElement("canvas");
