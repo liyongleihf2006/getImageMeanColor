@@ -16,13 +16,14 @@
  *                         在计算获取颜色值时进行的缩放比率
  *                                       当为1的时候是最精确的值,但计算速度不会提升
  *                                       该值越大计算速度越快,但过大时会导致精度下降
- *            cb:function(color,r,g,b,a,l)       获取值的回调函数
+ *            cb:function(color,l,r,g,b,a)       获取值的回调函数
  *                        color:计算出的rgba值字符串
+ *                        l:亮度
  *                        r:红色通道的值
  *                        g:绿色通道的值
  *                        b:蓝色通道的值
  *                        a:颜色透明度
- *                        l:亮度    
+ *                          
  */
 function getImageMeanColor(params){
     /* 图片的url */
@@ -92,7 +93,7 @@ function getImageMeanColor(params){
         var color = "rgba("+Math.round(redMean)+","+Math.round(greenMean)+","+Math.round(blueMean)+","+alphaMean+")";
         /* 亮度 */
         var l = (Math.max(redMean,greenMean,blueMean)+Math.min(redMean,greenMean,blueMean))/2/255;
-        cb(color,redMean,greenMean,blueMean,alphaMean,l);
+        cb(color,l,redMean,greenMean,blueMean,alphaMean);
     }
     /* 计算高度 */
     function confirmHeight(){
