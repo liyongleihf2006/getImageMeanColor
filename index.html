@@ -11,6 +11,8 @@
     <hr/>
     <span>
         <span>获取的颜色值为:</span>
+        <label>color:</label>
+        <span id="color"></span>
         <label>red:</label>
         <span id="red"></span>
         <label>green:</label>
@@ -33,7 +35,8 @@
                 clipHeight:"100%",
                 skewPosition:"top",
                 minification:10,
-                cb:function(r,g,b,a,l){
+                cb:function(color,r,g,b,a,l){
+                    document.querySelector("#color").innerHTML=color;
                     document.querySelector("#red").innerHTML=r;
                     document.querySelector("#green").innerHTML=g;
                     document.querySelector("#blue").innerHTML=b;
