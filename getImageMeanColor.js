@@ -109,9 +109,7 @@ function getImageMeanColor(params){
             h /= 6;
         }
         h = Math.round(h*360);
-        s = Math.round(s*100)+"%";
-        l = Math.round(l*100)+"%";
-        var hsla = "hsla("+h+","+s+","+l+","+alphaMean+")";
+        var hsla = "hsla("+h+","+Math.round(s*100)+"%"+","+Math.round(l*100)+"%"+","+alphaMean+")";
         cb(rgba,hsla,redMean,greenMean,blueMean,alphaMean,h,s,l);
     }
     /* 计算高度 */
