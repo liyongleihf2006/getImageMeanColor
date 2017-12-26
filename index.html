@@ -11,21 +11,32 @@
     <hr/>
     <span>
         <span>获取的颜色值为:</span>
-        <label>color:</label>
-        <span id="color"></span>
+        <label>rgba:</label>
+        <span id="rgba"></span>;
+        <label>hsla:</label>
+        <span id="hsla"></span>;
         <label>red:</label>
-        <span id="red"></span>
+        <span id="red"></span>;
         <label>green:</label>
-        <span id="green"></span>
+        <span id="green"></span>;
         <label>blue:</label>
-        <span id="blue"></span>
+        <span id="blue"></span>;
         <label>alpha:</label>
-        <span id="alpha"></span>
-        <label>亮度:</label>
+        <span id="alpha"></span>;
+        <label>色相:</label>
+        <span id="h"></span>;
+        <label>饱和度:</label>
+        <span id="s"></span>;
+        <label>明度:</label>
         <span id="l"></span>
         <br/>
         <label>共用时:</label>
         <span id="durtime"></span>
+        <br/>
+        <label>rgba:</label>
+        <div id="rgbaPanel" style="height:100px;width:100px;display:inline-block;"></div>
+        <label>hsla:</label>
+        <div id="hslaPanel" style="height:100px;width:100px;display:inline-block;"></div>
     </span>
     <script>
         document.querySelector("#todo").addEventListener("click",function(){
@@ -35,14 +46,20 @@
                 clipHeight:"100%",
                 skewPosition:"top",
                 minification:10,
-                cb:function(color,l,r,g,b,a){
-                    document.querySelector("#color").innerHTML=color;
+                cb:function(rgba,hsla,r,g,b,a,h,s,l){
+                    document.querySelector("#rgba").innerHTML=rgba;
+                    document.querySelector("#hsla").innerHTML=hsla;
                     document.querySelector("#red").innerHTML=r;
                     document.querySelector("#green").innerHTML=g;
                     document.querySelector("#blue").innerHTML=b;
                     document.querySelector("#alpha").innerHTML=a;
+                    document.querySelector("#h").innerHTML=h;
+                    document.querySelector("#s").innerHTML=s;
                     document.querySelector("#l").innerHTML=l;
                     document.querySelector("#durtime").innerHTML=new Date()-startTime+"毫秒";
+                    document.querySelector("#rgbaPanel").style.background=rgba;
+                    document.querySelector("#hslaPanel").style.background=hsla;
+
                 }
             });
         })

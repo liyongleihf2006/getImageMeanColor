@@ -16,13 +16,16 @@
  *                         在计算获取颜色值时进行的缩放比率
  *                                       当为1的时候是最精确的值,但计算速度不会提升
  *                                       该值越大计算速度越快,但过大时会导致精度下降
- *            cb:function(color,l,r,g,b,a)       获取值的回调函数
- *                        color:计算出的rgba值字符串
- *                        l:亮度
+ *            cb:function(rgba,hsla,r,g,b,a,h,s,l)       获取值的回调函数
+ *                        rgba:计算出的rgba值字符串
+ *                        hsla:计算出的hsla值字符串
  *                        r:红色通道的值
  *                        g:绿色通道的值
  *                        b:蓝色通道的值
  *                        a:颜色透明度
+ *                        h:色相
+ *                        s:饱和度
+ *                        l:明度
  *                          
  */
 function getImageMeanColor(params){
@@ -88,10 +91,28 @@ function getImageMeanColor(params){
         var greenMean = Math.round(greenChannel/count);
         var blueMean = Math.round(blueChannel/count);
         var alphaMean = alphaChannel/count/255;
-        var color = "rgba("+redMean+","+greenMean+","+blueMean+","+alphaMean+")";
-        /* 亮度 */
-        var l = (Math.max(redMean,greenMean,blueMean)+Math.min(redMean,greenMean,blueMean))/2/255;
-        cb(color,l,redMean,greenMean,blueMean,alphaMean);
+        var rgba = "rgba("+redMean+","+greenMean+","+blueMean+","+alphaMean+")";
+        var r = redMean/255,g = greenMean/255,b = blueMean/255;
+        var max = Math.max(r, g, b), min = Math.min(r, g, b);
+        var h, s, l = (max + min) / 2;
+    
+        if (max == min){ 
+            h = s = 0; // achromatic
+        } else {
+            var d = max - min;
+            s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+            switch(max) {
+                case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+                case g: h = (b - r) / d + 2; break;
+                case b: h = (r - g) / d + 4; break;
+            }
+            h /= 6;
+        }
+        h = Math.round(h*360);
+        s = Math.round(s*100)+"%";
+        l = Math.round(l*100)+"%";
+        var hsla = "hsla("+h+","+s+","+l+","+alphaMean+")";
+        cb(rgba,hsla,redMean,greenMean,blueMean,alphaMean,h,s,l);
     }
     /* 计算高度 */
     function confirmHeight(){
