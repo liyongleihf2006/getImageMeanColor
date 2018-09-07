@@ -49,7 +49,22 @@ function getImageMeanColor(params){
     }
     var canvasHeight,imageHeight,top=0;
     var image = new Image();
-    image.src= imageUrl;
+    image.crossOrigin = '';
+    if(window.URL&&!("crossOrigin" in Image.prototype)){
+        var xhr = new XMLHttpRequest();
+        xhr.onload = function () {
+            imageUrl = URL.createObjectURL(this.response);
+            image.addEventListener("load",function(){
+                URL.revokeObjectURL(imageUrl);
+            });
+            image.src= imageUrl;
+        };
+        xhr.open('GET', imageUrl,true);
+        xhr.responseType = 'blob';
+        xhr.send();
+    }else{
+        image.src= imageUrl;
+    }
     image.addEventListener("load",getMeanColor);
     /* 获取颜色平均值 */
     function getMeanColor(){
